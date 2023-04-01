@@ -3,13 +3,13 @@ from flask import Flask, request, render_template
 import pickle
 
 
-app = Flask(__name__,template_folder="template")
+app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
 
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('home.html')
 
 @app.route('/predict',methods=['POST'])
 
@@ -113,7 +113,7 @@ def predict():
             else:
                 output = 'Person has no risk of Stroke'
              
-            return render_template('index.html', prediction_text=output)
+            return render_template('home.html', prediction_text=output)
 
 
         except ValueError:
@@ -122,4 +122,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True)
